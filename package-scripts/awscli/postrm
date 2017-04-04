@@ -4,6 +4,23 @@
 # after package is uninstalled.
 #
 
+is_darwin() {
+  uname -v | grep "^Darwin" 2>&1 >/dev/null
+}
+
+if is_darwin; then
+  PREFIX=/usr/local
+  mkdir -p $PREFIX/bin
+else
+  PREFIX=/usr
+fi
+
+binaries="aws"
+
+for binary in $binaries; do
+  [ -L $PREFIX/bin/$binary ] && rm -f $PREFIX/bin/$binary
+done
+
 echo "awscli has been uninstalled!"
 
 exit 0

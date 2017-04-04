@@ -1,3 +1,6 @@
+# encoding: utf-8
+# frozen_string_literal: true
+
 #
 # This file is used to configure the awscli project. It contains
 # some minimal configuration examples for working with Omnibus. For a full list
@@ -51,3 +54,7 @@
 # ------------------------------
 windows_arch   %w{x86 x64}.include?((ENV['OMNIBUS_WINDOWS_ARCH'] || '').downcase) ?
                  ENV['OMNIBUS_WINDOWS_ARCH'].downcase.to_sym : :x86
+
+# Disable appending a timestamp to the package version
+# ----------------------------------------------------
+append_timestamp false

@@ -16,29 +16,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#
 
 name 'awscli'
-maintainer 'Socrata Engineering <sysadmin@socrata.com>'
-homepage 'https://github.com/socrata-platform/awscli-omnibus'
+default_version '1.11.71'
 
-# Defaults to C:/awscli on Windows
-# and /opt/awscli on all other platforms
-install_dir "#{default_root}/#{name}"
+version('1.11.71') { source md5: '25670034b1581e5de800eaadece3d977' }
 
-build_version '1.11.71'
-build_iteration 1
+dependency 'python'
+dependency 'setuptools'
 
-dependency 'preparation'
-dependency 'awscli'
-dependency 'version-manifest'
+source url: "https://github.com/aws/aws-cli/archive/#{version}.tar.gz"
 
-override :setuptools, version: '20.0'
+relative_path "aws-cli-#{version}"
 
-exclude '**/.git'
-exclude '**/bundler/git'
-
-package :pkg do
-  identifier 'net.socrata.pkg.awscli'
+build do
+  env = with_standard_compiler_flags(with_embedded_path)
+  command "#{install_dir}/embedded/bin/python setup.py install " \
+          "--prefix=#{install_dir}/embedded", env: env
+  command "cp #{install_dir}/embedded/bin/aws " \
+          "#{install_dir}/bin/aws", env: env
 end
-compress :dmg

@@ -1,11 +1,11 @@
-awscli Omnibus project
+AWSCLI Omnibus Project
 ======================
 This project creates full-stack platform-specific packages for
 `awscli`!
 
 Installation
 ------------
-You must have a sane Ruby 2.0.0+ environment with Bundler installed. Ensure all
+You must have a Ruby 2.0+ environment with Bundler installed and ensure all
 the required gems are installed:
 
 ```shell

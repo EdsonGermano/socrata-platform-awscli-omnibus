@@ -8,3 +8,6 @@ pkg/*
 bin/*
 files/**/cache/
 vendor/cookbooks
+Gemfile.lock
+.DS_Store
+Berksfile.lock

@@ -5,12 +5,31 @@
 #
 
 PROGNAME=`basename $0`
+INSTALLER_DIR=/opt/awscli
 
 error_exit()
 {
   echo "${PROGNAME}: ${1:-"Unknown Error"}" 1>&2
   exit 1
 }
+
+is_darwin() {
+  uname -v | grep "^Darwin" 2>&1 >/dev/null
+}
+
+if is_darwin; then
+  PREFIX=/usr/local
+  mkdir -p $PREFIX/bin
+else
+  PREFIX=/usr
+fi
+
+binaries="aws"
+
+for binary in $binaries; do
+  rm -f $PREFIX/bin/$binary
+  ln -s $INSTALLER_DIR/bin/$binary $PREFIX/bin/ || error_exit "Cannot link $binary to $PREFIX/bin/"
+done
 
 echo "Thank you for installing awscli!"
 

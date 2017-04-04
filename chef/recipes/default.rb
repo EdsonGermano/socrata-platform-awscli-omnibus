@@ -2,7 +2,10 @@
 # frozen_string_literal: true
 
 #
-# Copyright 2017, Socrata, Inc.
+# Cookbook Name:: awscli-omnibus
+# Recipe:: default
+#
+# Copyright:: 2017, Socrata, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,29 +19,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-#
 
-name 'awscli'
-maintainer 'Socrata Engineering <sysadmin@socrata.com>'
-homepage 'https://github.com/socrata-platform/awscli-omnibus'
+include_recipe 'omnibus'
 
-# Defaults to C:/awscli on Windows
-# and /opt/awscli on all other platforms
-install_dir "#{default_root}/#{name}"
-
-build_version '1.11.71'
-build_iteration 1
-
-dependency 'preparation'
-dependency 'awscli'
-dependency 'version-manifest'
-
-override :setuptools, version: '20.0'
-
-exclude '**/.git'
-exclude '**/bundler/git'
-
-package :pkg do
-  identifier 'net.socrata.pkg.awscli'
+omnibus_build 'awscli' do
+  project_dir '/tmp/awscli'
 end
-compress :dmg
